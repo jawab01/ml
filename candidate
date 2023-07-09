@@ -1,0 +1,41 @@
+import csv
+with open('enjoy.csv','r')as f:
+  reader=csv.reader(f)
+  data=list(reader)
+print('Data is\n')
+for row in data:
+  print(row)
+attr_len=len(data[0])-1
+G=['?']*attr_len
+S=['0']*attr_len
+temp=[]
+print(G)
+print(S)
+for row in data:
+  if row[-1]=='yes':
+    j=0
+    for col in row:
+      if col!='yes':
+        if col!=S[j] and S[j]=='0':
+          S[j]=col
+        elif col!=S[j] and S[j]!='0':
+          S[j]='?'
+      j=j+1
+    for j in range(0,attr_len):
+      for k in temp:
+        if k[j]!=S[j] and S[j]!='?':
+          temp.remove(k)
+  if row[-1]=='no':
+    j=0
+    for col in row:
+      if col!='no':
+        if col!=S[j] and S[j]!='0':
+          G[j]=S[j]
+          temp.append(G)
+          G=['?']*attr_len
+      j=j+1
+  print(S)
+  if(len(temp)==0):
+    print(G)
+  else
+    print(temp)
